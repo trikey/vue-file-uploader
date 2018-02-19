@@ -1,6 +1,6 @@
 {
-  "name": "vue-file-upload",
-  "version": "1.0.0",
+  "name": "vue-file-uploader",
+  "version": "1.0.1",
   "description": "Simple, but convenient and customizable file uploader",
   "main": "src/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trikey/vue-file-upload.git"
+    "url": "git+https://github.com/trikey/vue-file-uploader.git"
   },
   "keywords": [
     "file-upload",
@@ -20,9 +20,9 @@
   "author": "Ivan Belitskii",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/trikey/vue-file-upload/issues"
+    "url": "https://github.com/trikey/vue-file-uploader/issues"
   },
-  "homepage": "https://github.com/trikey/vue-file-upload#readme",
+  "homepage": "https://github.com/trikey/vue-file-uploader#readme",
   "dependencies": {
     "vue-resource": "^1.3.4"
   },
