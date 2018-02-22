@@ -14,6 +14,7 @@
       :accept="accept"
       :multiple="multiple"
     />
+  <slot name="progressbar" :progress="progress">
     <div class="progress-holder" v-if="progress > 0 && progress !== 100">
       <div class="progress">
         <div
@@ -22,10 +23,10 @@
           role="progressbar"
           aria-valuemin="0"
           aria-valuemax="100"
-        >
-        </div>
+        ></div>
       </div>
     </div>
+  </slot>
   </div>
 </template>
 <script>
@@ -45,7 +46,7 @@ export default {
     },
     buttonText: {
       type: String,
-      default: 'Выбрать файл',
+      default: 'Choose file',
     },
   },
 
@@ -93,7 +94,7 @@ export default {
         }
       });
 
-      this.$http.post('/api/files/upload', formData, {
+      this.$http.post('/files/upload', formData, {
         progress: (e) => {
           this.progress = parseInt((e.loaded * 100) / e.total, 10);
         },
