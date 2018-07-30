@@ -29,7 +29,7 @@ This components makes file uploading easier.
     ...
 
     <file-uploader
-        :only-images="true"
+        :images-only="true"
         mime-types="passed-to-accept-field-of-file-input"
         @uploaded="onFilesUploaded"
         @fail="onUploadFail"
