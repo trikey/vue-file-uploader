@@ -68,9 +68,14 @@ export default {
         },
       }).then((response) => {
         this.$emit('uploaded', response.data);
+        this.clear();
       }).catch((e) => {
         this.$emit('fail', e);
+        this.clear();
       });
+    },
+    clear() {
+      document.getElementById(this._uid).value = '';
     },
   },
 };

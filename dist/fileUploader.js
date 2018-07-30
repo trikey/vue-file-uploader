@@ -83,9 +83,14 @@ exports.default = {
         }
       }).then(function (response) {
         _this2.$emit('uploaded', response.data);
+        _this2.clear();
       }).catch(function (e) {
         _this2.$emit('fail', e);
+        _this2.clear();
       });
+    },
+    clear: function clear() {
+      document.getElementById(this._uid).value = '';
     }
   }
 };
