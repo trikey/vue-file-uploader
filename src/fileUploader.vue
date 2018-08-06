@@ -1,5 +1,5 @@
 <template>
-  <div class="inline">
+  <div :class="{ inline: !drop }">
     <slot>
       <label :for="_uid" class="btn btn-sky btn-icon full-width large btn-primary">
         {{ buttonText }}
@@ -45,5 +45,17 @@
   .progress {
     height: 5px;
     margin: 0;
+  }
+
+  .dropzone {
+    width: 100%;
+    height: 200px;
+    border: 3px dashed gray;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

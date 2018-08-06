@@ -27,6 +27,10 @@ exports.default = {
     buttonText: {
       type: String,
       default: 'Choose file'
+    },
+    drop: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -39,6 +43,16 @@ exports.default = {
         var input = document.getElementById(_this._uid);
         input.click();
       });
+
+      if (this.drop) {
+        this.$slots.default[0].elm.addEventListener('drop', function (event) {
+          _this.dropFiles(event);
+        });
+
+        this.$slots.default[0].elm.addEventListener('dragover', function (event) {
+          event.preventDefault();
+        });
+      }
     }
   },
   data: function data() {
@@ -91,6 +105,17 @@ exports.default = {
     },
     clear: function clear() {
       document.getElementById(this._uid).value = '';
+    },
+    dropFiles: function dropFiles(e) {
+      var _this3 = this;
+
+      var files = e.target.files || e.dataTransfer.files;
+      var validFiles = (0, _from2.default)(files).filter(function (file) {
+        var mimeTypeRegexp = new RegExp(_this3.accept.replace('*', '.\*'));
+        return mimeTypeRegexp.test(file.type);
+      });
+
+      this.upload(validFiles);
     }
   }
 };

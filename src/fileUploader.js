@@ -16,6 +16,10 @@ export default {
       type: String,
       default: 'Choose file',
     },
+    drop: {
+      type: Boolean,
+      default: false,
+    }
   },
 
   mounted() {
@@ -25,6 +29,16 @@ export default {
         const input = document.getElementById(this._uid);
         input.click();
       });
+
+      if (this.drop) {
+        this.$slots.default[0].elm.addEventListener('drop', (event) => {
+          this.dropFiles(event);
+        });
+
+        this.$slots.default[0].elm.addEventListener('dragover', (event) => {
+          event.preventDefault();
+        });
+      }
     }
   },
 
@@ -76,6 +90,15 @@ export default {
     },
     clear() {
       document.getElementById(this._uid).value = '';
+    },
+    dropFiles(e) {
+      const files = e.target.files || e.dataTransfer.files;
+      const validFiles = Array.from(files).filter((file) => {
+        const mimeTypeRegexp = new RegExp(this.accept.replace('*', '.\*' ));
+        return mimeTypeRegexp.test(file.type);
+      });
+
+      this.upload(validFiles);
     },
   },
 };
