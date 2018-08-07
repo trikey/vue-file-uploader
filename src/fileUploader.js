@@ -65,6 +65,9 @@ export default {
       if (!files) {
         return;
       }
+
+      this.progress = 0;
+
       const formData = new FormData();
 
       Array.from(files).forEach((file) => {

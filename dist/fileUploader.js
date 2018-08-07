@@ -81,6 +81,9 @@ exports.default = {
       if (!files) {
         return;
       }
+
+      this.progress = 0;
+
       var formData = new FormData();
 
       (0, _from2.default)(files).forEach(function (file) {
