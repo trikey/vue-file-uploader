@@ -40,8 +40,10 @@ exports.default = {
     if (this.$slots.default != null) {
       this.$slots.default[0].elm.addEventListener('click', function (event) {
         event.preventDefault();
-        var input = document.getElementById(_this._uid);
-        input.click();
+        if (_this.canUpload) {
+          var input = document.getElementById(_this._uid);
+          input.click();
+        }
       });
 
       if (this.drop) {
@@ -57,7 +59,8 @@ exports.default = {
   },
   data: function data() {
     return {
-      progress: 0
+      progress: 0,
+      canUpload: true
     };
   },
 
@@ -82,6 +85,7 @@ exports.default = {
         return;
       }
 
+      this.canUpload = false;
       this.progress = 0;
 
       var formData = new FormData();
@@ -104,10 +108,16 @@ exports.default = {
       }).catch(function (e) {
         _this2.$emit('fail', e);
         _this2.clear();
+      }).finally(function () {
+        _this2.canUpload = true;
       });
     },
     clear: function clear() {
       document.getElementById(this._uid).value = '';
+    },
+    clearProgress: function clearProgress() {
+      this.progress = 0;
+      this.canUpload = true;
     },
     dropFiles: function dropFiles(e) {
       var _this3 = this;

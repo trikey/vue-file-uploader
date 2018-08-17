@@ -26,8 +26,10 @@ export default {
     if (this.$slots.default != null) {
       this.$slots.default[0].elm.addEventListener('click', (event) => {
         event.preventDefault();
-        const input = document.getElementById(this._uid);
-        input.click();
+        if (this.canUpload) {
+          const input = document.getElementById(this._uid);
+          input.click();
+        }
       });
 
       if (this.drop) {
@@ -45,6 +47,7 @@ export default {
   data() {
     return {
       progress: 0,
+      canUpload: true,
     };
   },
 
@@ -66,6 +69,7 @@ export default {
         return;
       }
 
+      this.canUpload = false;
       this.progress = 0;
 
       const formData = new FormData();
@@ -89,10 +93,16 @@ export default {
       }).catch((e) => {
         this.$emit('fail', e);
         this.clear();
+      }).finally(() => {
+        this.canUpload = true;
       });
     },
     clear() {
       document.getElementById(this._uid).value = '';
+    },
+    clearProgress() {
+      this.progress = 0;
+      this.canUpload = true;
     },
     dropFiles(e) {
       const files = e.target.files || e.dataTransfer.files;
