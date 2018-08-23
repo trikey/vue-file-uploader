@@ -48,6 +48,7 @@ export default {
     return {
       progress: 0,
       canUpload: true,
+      currentRequest: null,
     };
   },
 
@@ -84,6 +85,10 @@ export default {
       });
 
       this.$http.post('/files/upload', formData, {
+        showProgressBar: false,
+        before: (request) => {
+          this.currentRequest = request;
+        },
         progress: (e) => {
           this.progress = parseInt((e.loaded * 100) / e.total, 10);
         },
@@ -95,12 +100,17 @@ export default {
         this.clear();
       }).finally(() => {
         this.canUpload = true;
+        this.currentRequest = null;
       });
     },
     clear() {
       document.getElementById(this._uid).value = '';
     },
     clearProgress() {
+      if (this.currentRequest != null) {
+        this.currentRequest.abort();
+        this.currentRequest = null;
+      }
       this.progress = 0;
       this.canUpload = true;
     },
