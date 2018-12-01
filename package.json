@@ -1,6 +1,6 @@
 {
   "name": "vue-file-uploader",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Simple, but convenient and customizable file uploader",
   "main": "dist/index.js",
   "scripts": {

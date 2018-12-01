@@ -28,6 +28,7 @@ exports.default = {
       type: String,
       default: 'Choose file'
     },
+    buttonClass: null,
     drop: {
       type: Boolean,
       default: false
@@ -60,7 +61,8 @@ exports.default = {
   data: function data() {
     return {
       progress: 0,
-      canUpload: true
+      canUpload: true,
+      currentRequest: null
     };
   },
 
@@ -99,6 +101,10 @@ exports.default = {
       });
 
       this.$http.post('/files/upload', formData, {
+        showProgressBar: false,
+        before: function before(request) {
+          _this2.currentRequest = request;
+        },
         progress: function progress(e) {
           _this2.progress = parseInt(e.loaded * 100 / e.total, 10);
         }
@@ -110,12 +116,17 @@ exports.default = {
         _this2.clear();
       }).finally(function () {
         _this2.canUpload = true;
+        _this2.currentRequest = null;
       });
     },
     clear: function clear() {
       document.getElementById(this._uid).value = '';
     },
     clearProgress: function clearProgress() {
+      if (this.currentRequest != null) {
+        this.currentRequest.abort();
+        this.currentRequest = null;
+      }
       this.progress = 0;
       this.canUpload = true;
     },
