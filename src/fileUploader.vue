@@ -1,7 +1,7 @@
 <template>
   <div :class="{ inline: !drop }">
     <slot>
-      <label :for="_uid" class="btn btn-sky btn-icon full-width large btn-primary">
+      <label :for="_uid" class="btn btn-sky btn-icon full-width large btn-primary" :class="buttonClass">
         {{ buttonText }}
       </label>
     </slot>

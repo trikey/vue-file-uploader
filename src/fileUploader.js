@@ -16,6 +16,7 @@ export default {
       type: String,
       default: 'Choose file',
     },
+    buttonClass: null,
     drop: {
       type: Boolean,
       default: false,
